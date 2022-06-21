@@ -64,6 +64,11 @@ namespace WorkPlanService.Services
             throw new NotImplementedException();
         }
 
+        public WorkDutyPlan GetWorkDutyPlanById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<WorkDutyPlan> GetWorkDutyPlanByWorker(int workerId)
         {
             throw new NotImplementedException();

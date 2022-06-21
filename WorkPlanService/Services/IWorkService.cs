@@ -24,6 +24,7 @@ namespace WorkPlanService.Services
         IEnumerable<WorkDutyPlan> GetAllWorkDutyPlan();
         IEnumerable<WorkDutyPlan> GetWorkDutyPlanByDate(DateTime date);
         IEnumerable<WorkDutyPlan> GetWorkDutyPlanByWorker(int workerId);
+        WorkDutyPlan GetWorkDutyPlanById(int id);
         WorkDutyPlan AddWorkDutyPlan(WorkDutyPlan workDutyPlan);
         WorkDutyPlan UpdateWorkDutyPlan(WorkDutyPlan workDutyPlan);
         void DeleteWorkDutyPlan(int id);

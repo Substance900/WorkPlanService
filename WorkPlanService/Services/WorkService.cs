@@ -21,10 +21,10 @@ namespace WorkPlanService.Services
         }
         public Shift AddShift(Shift shift)
         {
-            // var check = _shifts.FirstOrDefault(c=>c.Id==shift.Id||c.StartTime==shift.StartTime);
-            var check = _shifts.Contains(shift);
+             var check = _shifts.Find(c=>c.Id==shift.Id||c.StartTime==shift.StartTime);
+           
 
-            if (!check)
+            if (check is not object)
             {
                 _shifts.Add(shift);
                 return shift;
@@ -101,6 +101,11 @@ namespace WorkPlanService.Services
         public IEnumerable<WorkDutyPlan> GetWorkDutyPlanByDate(DateTime date)
         {
             return _workDutyPlans.FindAll(c=>c.Date==date);
+        }
+
+        public WorkDutyPlan GetWorkDutyPlanById(int id)
+        {
+            return _workDutyPlans.Find(c => c.Id == id);
         }
 
         public IEnumerable<WorkDutyPlan> GetWorkDutyPlanByWorker(int workerId)

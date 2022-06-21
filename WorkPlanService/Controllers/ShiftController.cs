@@ -12,27 +12,27 @@ namespace WorkPlanService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkerController : ControllerBase
+    public class ShiftController : ControllerBase
     {
         private readonly IWorkService _workService;
 
-        public WorkerController(IWorkService workService)
+        public ShiftController(IWorkService workService)
         {
             _workService = workService;
         }
         // GET: api/<WorkServiceController>
-       
-        [HttpGet("GetAllWorker")]
-        public ActionResult<IEnumerable<Worker>> Get()
+
+        [HttpGet("GetAllShift")]
+        public ActionResult<IEnumerable<Shift>> Get()
         {
-            return Ok(_workService.GetAllWorker());
+            return Ok(_workService.GetAllShift());
         }
 
         // GET api/<WorkServiceController>/5
-        [HttpGet("GetWorker/{id}")]
-        public ActionResult<Worker> Get(int id)
+        [HttpGet("GetShift/{id}")]
+        public ActionResult<Shift> Get(int id)
         {
-            var item = _workService.GetWorkerById(id);
+            var item = _workService.GetShiftById(id);
             if (item == null)
             {
                 return NotFound();
@@ -41,41 +41,41 @@ namespace WorkPlanService.Controllers
         }
 
         // POST api/<WorkServiceController>
-        [HttpPost("PostWorker")]
-        public ActionResult<Worker> Post([FromBody] Worker worker)
+        [HttpPost("PostShift")]
+        public ActionResult<Shift> Post([FromBody] Shift shift)
         {
-            var item = _workService.AddWorker(worker);
+            var item = _workService.AddShift(shift);
             if (item == null)
             {
                 return NotFound();
             }
-            return CreatedAtAction("Get", new { id = item.Id }, item);
+            return CreatedAtAction("Get",item);
         }
 
         // PUT api/<WorkServiceController>/5
-        [HttpPut("UpdateWorker/{id}")]
-        public ActionResult<Worker> Put([FromBody] Worker worker)
+        [HttpPut("UpdateShift/{id}")]
+        public ActionResult<Shift> Put([FromBody] Shift shift)
         {
-            var item = _workService.UpdateWorker(worker);
+            var item = _workService.UpdateShift(shift);
             if (item == null)
             {
                 return NotFound();
             }
-            return  Ok( item);
+            return Ok(item);
         }
 
         // DELETE api/<WorkServiceController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var existingItem = _workService.GetWorkerById(id);
+            var existingItem = _workService.GetShiftById(id);
 
             if (existingItem == null)
             {
                 return NotFound();
             }
 
-            _workService.DeleteWorker(id);
+            _workService.DeleteShift(id);
             return Ok();
         }
     }

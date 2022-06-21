@@ -12,27 +12,27 @@ namespace WorkPlanService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkerController : ControllerBase
+    public class WorkPlanController : ControllerBase
     {
         private readonly IWorkService _workService;
 
-        public WorkerController(IWorkService workService)
+        public WorkPlanController(IWorkService workService)
         {
             _workService = workService;
         }
         // GET: api/<WorkServiceController>
-       
-        [HttpGet("GetAllWorker")]
-        public ActionResult<IEnumerable<Worker>> Get()
+
+        [HttpGet("GetAllWorkDutyPlan")]
+        public ActionResult<IEnumerable<WorkDutyPlan>> Get()
         {
-            return Ok(_workService.GetAllWorker());
+            return Ok(_workService.GetAllWorkDutyPlan());
         }
 
         // GET api/<WorkServiceController>/5
-        [HttpGet("GetWorker/{id}")]
-        public ActionResult<Worker> Get(int id)
+        [HttpGet("GetWorkDutyPlanByDate/{id}")]
+        public ActionResult<WorkDutyPlan> GetByDate(DateTime id)
         {
-            var item = _workService.GetWorkerById(id);
+            var item = _workService.GetWorkDutyPlanByDate(id);
             if (item == null)
             {
                 return NotFound();
@@ -40,42 +40,53 @@ namespace WorkPlanService.Controllers
             return Ok(item);
         }
 
-        // POST api/<WorkServiceController>
-        [HttpPost("PostWorker")]
-        public ActionResult<Worker> Post([FromBody] Worker worker)
+        // GET api/<WorkServiceController>/5
+        [HttpGet("GetWorkDutyPlanByWorker/{id}")]
+        public ActionResult<WorkDutyPlan> GetByWorker(int id)
         {
-            var item = _workService.AddWorker(worker);
+            var item = _workService.GetWorkDutyPlanByWorker(id);
             if (item == null)
             {
                 return NotFound();
             }
-            return CreatedAtAction("Get", new { id = item.Id }, item);
+            return Ok(item);
+        }
+        // POST api/<WorkServiceController>
+        [HttpPost("PostShift")]
+        public ActionResult<WorkDutyPlan> Post([FromBody] WorkDutyPlan workDuty)
+        {
+            var item = _workService.AddWorkDutyPlan(workDuty);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
         }
 
         // PUT api/<WorkServiceController>/5
-        [HttpPut("UpdateWorker/{id}")]
-        public ActionResult<Worker> Put([FromBody] Worker worker)
+        [HttpPut("UpdateWorkPan/{id}")]
+        public ActionResult<WorkDutyPlan> Put( [FromBody] WorkDutyPlan workDutyPlan)
         {
-            var item = _workService.UpdateWorker(worker);
+            var item = _workService.UpdateWorkDutyPlan(workDutyPlan);
             if (item == null)
             {
                 return NotFound();
             }
-            return  Ok( item);
+            return Ok(item);
         }
 
         // DELETE api/<WorkServiceController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var existingItem = _workService.GetWorkerById(id);
+            var existingItem = _workService.GetWorkDutyPlanById(id);
 
             if (existingItem == null)
             {
                 return NotFound();
             }
 
-            _workService.DeleteWorker(id);
+            _workService.DeleteWorkDutyPlan(id);
             return Ok();
         }
     }
