@@ -53,7 +53,7 @@ namespace WorkPlanService.Controllers
         }
 
         // PUT api/<WorkServiceController>/5
-        [HttpPut("UpdateWorker/{id}")]
+        [HttpPut("UpdateWorker")]
         public ActionResult<Worker> Put([FromBody] Worker worker)
         {
             var item = _workService.UpdateWorker(worker);

@@ -53,7 +53,7 @@ namespace WorkPlanService.Controllers
         }
 
         // PUT api/<WorkServiceController>/5
-        [HttpPut("UpdateShift/{id}")]
+        [HttpPut("UpdateShift")]
         public ActionResult<Shift> Put([FromBody] Shift shift)
         {
             var item = _workService.UpdateShift(shift);
