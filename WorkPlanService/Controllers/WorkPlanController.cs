@@ -52,7 +52,7 @@ namespace WorkPlanService.Controllers
             return Ok(item);
         }
         // POST api/<WorkServiceController>
-        [HttpPost("PostShift")]
+        [HttpPost("PostWorkPlan")]
         public ActionResult<WorkDutyPlan> Post([FromBody] WorkDutyPlan workDuty)
         {
             var item = _workService.AddWorkDutyPlan(workDuty);

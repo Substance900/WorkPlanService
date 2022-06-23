@@ -17,7 +17,7 @@ namespace WorkPlanService.Services
             _shifts = new List<Shift> { new Shift { Id=1,StartTime="0",EndTime="8"},new Shift { Id = 2, StartTime = "8", EndTime = "16" }, new Shift { Id = 3, StartTime = "16", EndTime = "24" } };
 
             _workers = new List<Worker> { new Worker {Id=1,Name="John" }, new Worker { Id = 2, Name = "Frank" }, new Worker { Id = 3, Name = "Judith" }, new Worker { Id = 4, Name = "Lizzy" } };
-            _workDutyPlans = new List<WorkDutyPlan> { new WorkDutyPlan { Id=1,ShiftId=1,WorkerId=1,Date=DateTime.Today}, new WorkDutyPlan { Id = 2, ShiftId = 2, WorkerId = 3, Date = DateTime.Today }, new WorkDutyPlan { Id = 3, ShiftId = 3, WorkerId =21, Date = DateTime.Today } };
+            _workDutyPlans = new List<WorkDutyPlan> { new WorkDutyPlan { Id=1,ShiftId=1,WorkerId=1,Date=DateTime.Today}, new WorkDutyPlan { Id = 2, ShiftId = 2, WorkerId = 3, Date = DateTime.Today }, new WorkDutyPlan { Id = 3, ShiftId = 3, WorkerId =2, Date = DateTime.Today } };
         }
         public Shift AddShift(Shift shift)
         {
@@ -36,10 +36,10 @@ namespace WorkPlanService.Services
         public WorkDutyPlan AddWorkDutyPlan(WorkDutyPlan workdutyplan)
         {
             // var check = _shifts.FirstOrDefault(c=>c.Id==shift.Id||c.StartTime==shift.StartTime);
-            var check = _workDutyPlans.Contains(workdutyplan);
+            //var check = _workDutyPlans.Contains(workdutyplan);
             var checkExisted = _workDutyPlans.FindAll(x => x.ShiftId == workdutyplan.ShiftId || x.WorkerId == workdutyplan.WorkerId);
 
-            if (checkExisted?.Count()>0)
+            if (checkExisted?.Count()==0)
             {
                 _workDutyPlans.Add(workdutyplan);
                 return workdutyplan;
@@ -50,9 +50,9 @@ namespace WorkPlanService.Services
         public Worker AddWorker(Worker worker)
         {
             // var check = _shifts.FirstOrDefault(c=>c.Id==shift.Id||c.StartTime==shift.StartTime);
-            var check = _workers.Contains(worker);
+            var check = _workers.Find(c=>c.Id==worker.Id);
 
-            if (!check)
+            if (check is not object)
             {
                 _workers.Add(worker);
                 return worker;
@@ -133,8 +133,9 @@ namespace WorkPlanService.Services
 
         public WorkDutyPlan UpdateWorkDutyPlan(WorkDutyPlan workDutyPlan)
         {// the only reason for update is if workerid does not exist and shift id exist 
+            workDutyPlan.Date = DateTime.Today;
             var check = _workDutyPlans.Find(c => c.Id == workDutyPlan.Id);
-            if (check is object)
+            if (check is not object)
             {
                 var checkWorker = _workDutyPlans.Find(c => c.Date == workDutyPlan.Date && c.WorkerId == workDutyPlan.WorkerId);
 
