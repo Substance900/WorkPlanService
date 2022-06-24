@@ -35,7 +35,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.GetWorkDutyPlanByDate(id);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -47,7 +47,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.GetWorkDutyPlanByWorker(id);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -58,7 +58,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.AddWorkDutyPlan(workDuty);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -70,7 +70,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.UpdateWorkDutyPlan(workDutyPlan);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -83,7 +83,7 @@ namespace WorkPlanService.Controllers
 
             if (existingItem == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             _workService.DeleteWorkDutyPlan(id);

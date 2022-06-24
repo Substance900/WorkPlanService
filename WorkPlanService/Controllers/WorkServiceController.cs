@@ -35,7 +35,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.GetWorkerById(id);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -47,7 +47,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.AddWorker(worker);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return CreatedAtAction("Get", new { id = item.Id }, item);
         }
@@ -59,7 +59,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.UpdateWorker(worker);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return  Ok( item);
         }
@@ -72,7 +72,7 @@ namespace WorkPlanService.Controllers
 
             if (existingItem == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             _workService.DeleteWorker(id);

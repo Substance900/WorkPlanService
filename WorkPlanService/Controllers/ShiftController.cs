@@ -35,7 +35,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.GetShiftById(id);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -47,7 +47,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.AddShift(shift);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return CreatedAtAction("Get",item);
         }
@@ -59,7 +59,7 @@ namespace WorkPlanService.Controllers
             var item = _workService.UpdateShift(shift);
             if (item == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return Ok(item);
         }
@@ -72,7 +72,7 @@ namespace WorkPlanService.Controllers
 
             if (existingItem == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             _workService.DeleteShift(id);
