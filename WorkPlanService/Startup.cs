@@ -30,7 +30,8 @@ namespace WorkPlanService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IWorkService,WorkService>();
+          //  services.AddScoped<IWorkService,WorkService>();
+            services.AddScoped<IWorkService, WorkServiceWithDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using WorkPlanService.Controllers;
+using WorkPlanService.Data;
 using WorkPlanService.Models;
 using WorkPlanService.Services;
 using Xunit;
@@ -13,10 +14,11 @@ namespace WorkPlanService.Test
         private readonly IWorkService _service;
         private readonly ShiftController _shiftController;
         private readonly WorkPlanController _workPlanController;
-
-        public WorkPlanControllerTest()
+       
+        public WorkPlanControllerTest(ApplicationDbContext context)
         {
-            _service =new WorkService();
+
+            _service =new WorkServiceWithDbContext(context);
             _shiftController =new  ShiftController(_service);
             _workPlanController = new WorkPlanController(_service);
 
@@ -34,7 +36,7 @@ namespace WorkPlanService.Test
 
             var listShifts = list.Value as List<Shift>;
 
-            Assert.Equal(3, listShifts.Count);
+            Assert.Equal(2, listShifts.Count);
 
 
         }

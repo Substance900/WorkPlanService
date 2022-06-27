@@ -18,13 +18,14 @@ namespace WorkPlanService.Services
         
         public Shift AddShift(Shift shift)
         {
-            var check = _context.Shifts.First(c=>c.Id==shift.Id);
+            var check = _context.Shifts.FirstOrDefault(c=>c.Id==shift.Id);
 
 
             if (check is not object)
             {
-                _context.Shifts.Add(shift);
-                _context.SaveChangesAsync();
+                var dbShift = new Shift {StartTime=shift.StartTime,EndTime=shift.EndTime };
+                _context.Shifts.Add(dbShift);
+                _context.SaveChanges();
                 return shift;
             }
             return null;
@@ -36,8 +37,9 @@ namespace WorkPlanService.Services
 
             if (checkExisted?.Count() == 0)
             {
+                var dbWorkDutyPlan = new WorkDutyPlan { Date = workdutyplan.Date, ShiftId = workdutyplan.ShiftId,WorkerId=workdutyplan.WorkerId };
                 _context.WorkDutyPlans.Add(workdutyplan);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return workdutyplan;
             }
             return null;
@@ -45,13 +47,14 @@ namespace WorkPlanService.Services
 
         public Worker AddWorker(Worker worker)
         {
-            var check = _context.Workers.First(c => c.Id == worker.Id);
+            var check = _context.Workers.FirstOrDefault(c => c.Id == worker.Id);
 
 
             if (check is not object)
             {
+                var dbWorker = new Worker { Name = worker.Name };
                 _context.Workers.Add(worker);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return worker;
             }
             return null;
@@ -61,12 +64,12 @@ namespace WorkPlanService.Services
         {
             try
             {
-                var checkExisted = _context.Shifts.First(c => c.Id == id);
+                var checkExisted = _context.Shifts.FirstOrDefault(c => c.Id == id);
 
                 if (checkExisted is object)
                 {
                     _context.Shifts.Remove(checkExisted);
-                    _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 
             }
@@ -81,12 +84,12 @@ namespace WorkPlanService.Services
         {
             try
             {
-                var checkExisted = _context.WorkDutyPlans.First(c => c.Id == id);
+                var checkExisted = _context.WorkDutyPlans.FirstOrDefault(c => c.Id == id);
 
                 if (checkExisted is object)
                 {
                     _context.WorkDutyPlans.Remove(checkExisted);
-                    _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
 
             }
@@ -101,12 +104,12 @@ namespace WorkPlanService.Services
         {
             try
             {
-                var checkExisted = _context.Workers.First(c => c.Id == id);
+                var checkExisted = _context.Workers.FirstOrDefault(c => c.Id == id);
 
                 if (checkExisted is object)
                 {
                     _context.Workers.Remove(checkExisted);
-                    _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
 
             }
@@ -134,7 +137,7 @@ namespace WorkPlanService.Services
 
         public Shift GetShiftById(int id)
         {
-            return _context.Shifts.First(c=>c.Id==id);
+            return _context.Shifts.FirstOrDefault(c=>c.Id==id);
         }
 
         public IEnumerable<WorkDutyPlan> GetWorkDutyPlanByDate(DateTime date)
@@ -144,7 +147,7 @@ namespace WorkPlanService.Services
 
         public WorkDutyPlan GetWorkDutyPlanById(int id)
         {
-            return _context.WorkDutyPlans.First(c => c.Id == id);
+            return _context.WorkDutyPlans.FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<WorkDutyPlan> GetWorkDutyPlanByWorker(int workerId)
@@ -154,12 +157,12 @@ namespace WorkPlanService.Services
 
         public Worker GetWorkerById(int id)
         {
-            return _context.Workers.First(c => c.Id == id);
+            return _context.Workers.FirstOrDefault(c => c.Id == id);
         }
 
         public Shift UpdateShift(Shift shift)
         {
-            var check = _context.Shifts.First(c => c.Id == shift.Id);
+            var check = _context.Shifts.FirstOrDefault(c => c.Id == shift.Id);
             if (check is object)
             {
                 check.StartTime = shift.StartTime;
@@ -175,7 +178,7 @@ namespace WorkPlanService.Services
         {
             // the only reason for update is if workerid does not exist and shift id exist 
             workDutyPlan.Date = DateTime.Today;
-            var check = _context.WorkDutyPlans.First(c => c.Id == workDutyPlan.Id);
+            var check = _context.WorkDutyPlans.FirstOrDefault(c => c.Id == workDutyPlan.Id);
             if (check is not object)
             {
                 var checkWorker = _context.WorkDutyPlans.Where(c => c.Date == workDutyPlan.Date && c.WorkerId == workDutyPlan.WorkerId);
@@ -196,7 +199,7 @@ namespace WorkPlanService.Services
         }
         public Worker UpdateWorker(Worker worker)
         {
-            var existedWorker = _context.Workers.First(c => c.Id == worker.Id);
+            var existedWorker = _context.Workers.FirstOrDefault(c => c.Id == worker.Id);
             if (existedWorker is object)
             {
                 existedWorker.Name = worker.Name;
