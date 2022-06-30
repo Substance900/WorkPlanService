@@ -29,10 +29,10 @@ namespace WorkPlanService.Controllers
         }
 
         // GET api/<WorkServiceController>/5
-        [HttpGet("GetWorkDutyPlanByDate/{id}")]
-        public ActionResult<WorkDutyPlan> GetByDate(DateTime id)
+        [HttpGet("GetWorkDutyPlanByDate/{date}")]
+        public ActionResult<WorkDutyPlan> GetByDate(DateTime date)
         {
-            var item = _workService.GetWorkDutyPlanByDate(id);
+            var item = _workService.GetWorkDutyPlanByDate(date);
             if (item == null)
             {
                 return NoContent();

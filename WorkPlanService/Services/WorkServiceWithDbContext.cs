@@ -33,12 +33,12 @@ namespace WorkPlanService.Services
 
         public WorkDutyPlan AddWorkDutyPlan(WorkDutyPlan workdutyplan)
         {
-            var checkExisted = _context.WorkDutyPlans.Select(x => x.ShiftId == workdutyplan.ShiftId || x.WorkerId == workdutyplan.WorkerId);
+            var checkExisted = _context.WorkDutyPlans.Where(x => x.ShiftId == workdutyplan.ShiftId || x.WorkerId == workdutyplan.WorkerId);
 
             if (checkExisted?.Count() == 0)
             {
                 var dbWorkDutyPlan = new WorkDutyPlan { Date = workdutyplan.Date, ShiftId = workdutyplan.ShiftId,WorkerId=workdutyplan.WorkerId };
-                _context.WorkDutyPlans.Add(workdutyplan);
+                _context.WorkDutyPlans.Add(dbWorkDutyPlan);
                 _context.SaveChanges();
                 return workdutyplan;
             }

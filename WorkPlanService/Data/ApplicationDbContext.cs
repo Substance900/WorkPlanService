@@ -13,6 +13,7 @@ namespace WorkPlanService.Data
         {
 
         }
+        
         public virtual DbSet<Worker> Workers { get; set; }
         public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<WorkDutyPlan> WorkDutyPlans { get; set; }

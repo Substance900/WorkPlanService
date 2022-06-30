@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 using WorkPlanService.Controllers;
@@ -14,12 +16,12 @@ namespace WorkPlanService.Test
         private readonly IWorkService _service;
         private readonly ShiftController _shiftController;
         private readonly WorkPlanController _workPlanController;
-       
-        public WorkPlanControllerTest(ApplicationDbContext context)
+      
+        public WorkPlanControllerTest()
         {
-
-            _service =new WorkServiceWithDbContext(context);
-            _shiftController =new  ShiftController(_service);
+           
+            _service = new WorkService();
+            _shiftController = new ShiftController(_service);
             _workPlanController = new WorkPlanController(_service);
 
         }
@@ -36,7 +38,7 @@ namespace WorkPlanService.Test
 
             var listShifts = list.Value as List<Shift>;
 
-            Assert.Equal(2, listShifts.Count);
+            Assert.Equal(3, listShifts.Count);
 
 
         }
@@ -59,5 +61,8 @@ namespace WorkPlanService.Test
 
 
         }
+
+       
+
     }
 }
