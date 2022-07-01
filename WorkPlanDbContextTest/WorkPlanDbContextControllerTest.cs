@@ -29,8 +29,8 @@ namespace WorkPlanDbContextTest
         {
             mock.Setup(p => p.GetShiftById(1));
             ShiftController emp = new ShiftController(mock.Object);
-            string result = _shiftController.Get(1).ToString();
-            Assert.Equal("1", result);
+            Shift result = _shiftController.Get(1).Value;
+            Assert.Equal(1, result.Id);
         }
         [Fact]
         public void GetShiftDetails()
